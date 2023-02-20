@@ -9,11 +9,20 @@ def parser(file):
     
     return data
 
+def round (num):
+    list = []
+    list.append(num)
+    my_formatted_list = [ '%.2f' % elem for elem in list ]
+    
+    return my_formatted_list[0]
+
 def distBySex(data):
     illM = 0
     totalM = 0
     illF = 0
     totalF = 0
+    perM = 0
+    perF = 0
 
     info = []
 
@@ -26,11 +35,16 @@ def distBySex(data):
             totalF += 1
             if(line[5] == '1'):
                 illF += 1
+    
+    perM = (illM/totalM)*100
+    perF = (illF/totalF)*100
 
     info.append(illM)
     info.append(totalM)
+    info.append(perM)
     info.append(illF)
     info.append(totalF)
+    info.append(perF)
 
     return info
 
@@ -76,7 +90,6 @@ def colGroups (maxCol):
     
     return groups
 
-
 def distByAge(data):
     maxAge = maxMin(data)[0]
     groups = ageGroups(maxAge)
@@ -108,16 +121,16 @@ def distByCol(data):
 def sexTables(info):
     print()
     print(" >  Distribution of the disease by sex  < \n")
-    print("+--------------------------+")
-    print("|  Sex  |  Sick  |  Total  |")
-    print("+--------------------------+")
-    print("+--------------------------+")
-    print("|   M   | {:^6} | {:^7} |".format(info[0],info[1]))
-    print("+--------------------------+")
-    print("|   F   | {:^6} | {:^7} |".format(info[2],info[3]))
-    print("+--------------------------+")
+    print("+-----------------------------------------+")
+    print("|  Sex  |  Sick  |  Total  |  Percentage  |")
+    print("+-----------------------------------------+")
+    print("+-----------------------------------------+")
+    print("|   M   | {:^6} | {:^7} | {:^12} |".format(info[0],info[1],round(info[2])))
+    print("+-----------------------------------------+")
+    print("|   F   | {:^6} | {:^7} | {:^12} |".format(info[3],info[4],round(info[5])))
+    print("+-----------------------------------------+")
 
-def ageTables(groups):
+def ageTables(data, groups):
     print("\n")
     print(" >  Distribution of the disease by groups of age  < \n")
     print("+--------------------+")
@@ -128,7 +141,7 @@ def ageTables(groups):
         print("| [{},{}] | {:^8} |".format(key,key+4,groups[key]))
         print("+--------------------+")
 
-def colTables(groups):
+def colTables(data, groups):
     print("\n")
     print(" >  Distribution of the disease by groups of cholesterol  < \n")
     print("+--------------------------+")
@@ -139,12 +152,15 @@ def colTables(groups):
             print("|   [{},{}]   | {:^8} |".format(key,key+9,groups[key]))
             print("+--------------------------+")
 
+
+
 def main():
     data = parser('myheart.csv')
 
     sexTables(distBySex(data))
-    ageTables(distByAge(data))
-    colTables(distByCol(data))
+    ageTables(data, distByAge(data))
+    colTables(data, distByCol(data))
+
 
 if __name__ == "__main__":
     main()
