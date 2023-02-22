@@ -1,3 +1,6 @@
+import matplotlib.pyplot as plt
+import numpy as np
+
 def parser(file):
     f = open(file)
     data = []
@@ -149,18 +152,32 @@ def colTables(data, groups):
     print("+--------------------------+")
     print("+--------------------------+")
     for key in groups:
-            print("|   [{},{}]   | {:^8} |".format(key,key+9,groups[key]))
+            print("|   [{:^3},{:^3}]   | {:^8} |".format(key,key+9,groups[key]))
             print("+--------------------------+")
 
+            
+def sexToGraph(info):
+    sexDist = np.array([info[2],info[5]])
+    
+    mylabels = ["male","female"]
+    mycolors = ["blue", "hotpink"]
 
+    plt.pie(sexDist,labels=mylabels, colors=mycolors)
+    plt.legend()
+    plt.show() 
 
 def main():
     data = parser('myheart.csv')
 
-    sexTables(distBySex(data))
-    ageTables(data, distByAge(data))
-    colTables(data, distByCol(data))
+    sex = distBySex(data)
+    age = distByAge(data)
+    col = distByCol(data)
 
+    sexTables(sex)
+    ageTables(data,age)
+    colTables(data,col)
+
+    sexToGraph(sex)
 
 if __name__ == "__main__":
     main()
