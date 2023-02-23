@@ -44,7 +44,7 @@ def prog(string):
         i += 1
 
 def main():
-    text = input("\n > Introduzir texto <\n\n_>")
+    text = input("")
     print("\n")
     prog(text)
     print("\n")
