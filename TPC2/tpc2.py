@@ -45,7 +45,9 @@ def prog(string):
 
 def main():
     text = input("\n > Introduzir texto <\n\n_>")
+    print("\n")
     prog(text)
+    print("\n")
 
 if __name__ == "__main__":
     main()
