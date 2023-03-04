@@ -122,9 +122,9 @@ def json(data):
         fileContent += "    {\n"
         for key in dic:
             if key != 'names':
-                fileContent += f'        {key}: {dic[key]},\n'
+                fileContent += f'        "{key}": "{dic[key]}",\n'
             else:
-                fileContent += f'        {key}: {dic[key]}\n'
+                fileContent += f'        "{key}": "{dic[key]}"\n'
         if i<19: fileContent += "    },\n"
         else: fileContent += "    }\n"
     fileContent += "]\n"
